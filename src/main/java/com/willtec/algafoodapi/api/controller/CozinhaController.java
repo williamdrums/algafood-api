@@ -4,7 +4,7 @@ import com.willtec.algafoodapi.domain.exception.EntidadeEmUsoException;
 import com.willtec.algafoodapi.domain.exception.EntidadeNaoEncontradaException;
 import com.willtec.algafoodapi.domain.model.Cozinha;
 import com.willtec.algafoodapi.domain.repository.CozinhaRepository;
-import com.willtec.algafoodapi.domain.service.CozinhaService;
+import com.willtec.algafoodapi.domain.service.CadastroCozinhaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class CozinhaController {
     private CozinhaRepository cozinhaRepository;
 
     @Autowired
-    private CozinhaService cozinhaService;
+    private CadastroCozinhaService cadastroCozinhaService;
 
 
     @GetMapping
@@ -43,7 +43,7 @@ public class CozinhaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cozinha adicionar(@RequestBody Cozinha cozinha) {
-        return cozinhaService.salvar(cozinha);
+        return cadastroCozinhaService.salvar(cozinha);
     }
 
     @PutMapping("/{cozinhaId}")
@@ -60,7 +60,7 @@ public class CozinhaController {
     @DeleteMapping("/{cozinhaId}")
     public ResponseEntity<Void> deletar(@PathVariable Long cozinhaId) {
         try {
-            cozinhaService.delete(cozinhaId);
+            cadastroCozinhaService.delete(cozinhaId);
             return ResponseEntity.noContent().build();
 
         } catch (EntidadeNaoEncontradaException e) {
